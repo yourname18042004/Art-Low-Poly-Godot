@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://3v5ed0k3b4xb"]
+
+[ext_resource type="Script" path="res://player.cs" id="1_mfxfp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_erpfp"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_mfxfp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_erpfp")
+
+[node name="CameraController" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraController"]

@@ -1,0 +1,38 @@
+[gd_resource type="VisualShader" load_steps=4 format=3 uid="uid://cg52asvqr2n2w"]
+
+[ext_resource type="Texture2D" uid="uid://ckwg1m04ml455" path="res://Assets/Texture/T_basic1_vfx.PNG" id="1_6qs2r"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ingkv"]
+expanded_output_ports = [0]
+texture = ExtResource("1_6qs2r")
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_e5tj4"]
+constant = Color(0.152, 0.6488, 0.8, 1)
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
+
+uniform sampler2D tex_frg_2;
+
+
+
+void fragment() {
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, UV);
+	float n_out2p1 = n_out2p0.r;
+
+
+// Output:0
+	ALPHA = n_out2p1;
+
+
+}
+"
+modes/cull = 2
+flags/unshaded = true
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_ingkv")
+nodes/fragment/2/position = Vector2(100, 240)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorConstant_e5tj4")
+nodes/fragment/3/position = Vector2(160, 120)
+nodes/fragment/connections = PackedInt32Array(2, 1, 0, 1)

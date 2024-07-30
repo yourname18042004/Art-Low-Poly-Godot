@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://b3mq26v26cbpp"]
+
+[ext_resource type="Shader" uid="uid://c5j12ynvpuvlo" path="res://Assets/Shader/s_scpecial_shader.tres" id="1_fsbcc"]
+[ext_resource type="Shader" uid="uid://tjkid35102ir" path="res://Assets/Shader/smoke.tres" id="2_1htf5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4lrj"]
+render_priority = 0
+shader = ExtResource("1_fsbcc")
+
+[sub_resource type="QuadMesh" id="QuadMesh_jcxvg"]
+size = Vector2(5, 5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ke75o"]
+render_priority = 0
+shader = ExtResource("2_1htf5")
+
+[sub_resource type="Curve" id="Curve_mfscg"]
+_data = [Vector2(0, 0.637736), 0.0, 0.0, 0, 0, Vector2(1, 0.366038), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_t6sna"]
+curve = SubResource("Curve_mfscg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pg6xa"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -180.0
+angle_max = 180.0
+inherit_velocity_ratio = 0.217
+flatness = 0.193
+gravity = Vector3(0, 8, 0)
+scale_min = 1.5
+scale_max = 2.2
+scale_curve = SubResource("CurveTexture_t6sna")
+color = Color(0.645378, 0.00140677, 0.796894, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_1qpi3"]
+size = Vector2(5, 5)
+
+[node name="Fire" type="Node3D"]
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+sorting_offset = 2.0
+material_override = SubResource("ShaderMaterial_p4lrj")
+amount = 1
+mesh = SubResource("QuadMesh_jcxvg")
+gravity = Vector3(0, 0, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_ke75o")
+amount = 16
+lifetime = 1.6
+randomness = 0.1
+process_material = SubResource("ParticleProcessMaterial_pg6xa")
+draw_pass_1 = SubResource("QuadMesh_1qpi3")

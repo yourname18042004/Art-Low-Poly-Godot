@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://lc5gmwbvalvs"]
+
+[ext_resource type="Shader" uid="uid://cpj2oa7y34avs" path="res://Assets/Shader/shot.tres" id="1_aasov"]
+[ext_resource type="ArrayMesh" uid="uid://bv4bu432m06p6" path="res://Assets/Model/shot/shot.res" id="2_fynsi"]
+[ext_resource type="Shader" uid="uid://bh5lpberidtfx" path="res://Assets/Shader/detail.tres" id="3_qtkk6"]
+[ext_resource type="Shader" uid="uid://cg52asvqr2n2w" path="res://Assets/Shader/shot2.tres" id="4_etrp8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5frkk"]
+render_priority = 0
+shader = ExtResource("3_qtkk6")
+
+[sub_resource type="QuadMesh" id="QuadMesh_vf1vs"]
+size = Vector2(1.5, 4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghmgr"]
+render_priority = 0
+shader = ExtResource("1_aasov")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p333q"]
+render_priority = 0
+shader = ExtResource("4_etrp8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1ta6f"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.7
+angle_min = -60.0
+angle_max = 60.0
+direction = Vector3(0, -2, 0)
+spread = 0.0
+initial_velocity_min = 3.0
+initial_velocity_max = 8.0
+radial_velocity_min = 3.0
+radial_velocity_max = 6.0
+gravity = Vector3(0, 0, 0)
+attractor_interaction_enabled = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_bcxo4"]
+size = Vector2(0.2, 1)
+
+[node name="shot" type="Node3D"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.319519, -0.0246191, 0.94726, -0.0246191, 0.99911, 0.0342709, -0.94726, -0.0342709, 0.318628, -0.0487045, -1.53616, 0)
+material_override = SubResource("ShaderMaterial_5frkk")
+mesh = SubResource("QuadMesh_vf1vs")
+skeleton = NodePath("../MeshInstance3D2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+sorting_offset = 4.0
+material_override = SubResource("ShaderMaterial_ghmgr")
+mesh = ExtResource("2_fynsi")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.44119, 0)
+material_override = SubResource("ShaderMaterial_5frkk")
+mesh = SubResource("QuadMesh_vf1vs")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 5.96046e-08, 0, -5.96046e-08, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_p333q")
+amount = 10
+lifetime = 0.63
+process_material = SubResource("ParticleProcessMaterial_1ta6f")
+draw_pass_1 = SubResource("QuadMesh_bcxo4")

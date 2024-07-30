@@ -1,0 +1,14 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://dek3do3sxq2ff"]
+
+[sub_resource type="Gradient" id="Gradient_bsnxy"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d4qmc"]
+gradient = SubResource("Gradient_bsnxy")
+
+[resource]
+lifetime_randomness = 0.24
+particle_flag_rotate_y = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 0, 10)
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_d4qmc")
